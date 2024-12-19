@@ -8,6 +8,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
+import  RegisterApi from "@/app/services/auth/registerApi";
 
 const RegisterSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -48,35 +49,20 @@ export default function RegisterComponent() {
     setErrorMessage(""); // Resetting previous error message
     setSuccessMessage(""); // Resetting previous success message
 
-    try {
-      const res = await fetch(
-        "https://silo-order-management-system.vercel.app/auth/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-
-      if (!res.ok) {
-        // اگر وضعیت پاسخ درست نباشد
-        const errorData = await res.json();
-        throw new Error(errorData.message || "Something went wrong");
+    try {  
+      const resUser = await RegisterApi(data);  
+      if(resUser.status === 201){
+      setSuccessMessage(resUser.data.message);
+      router.push("/login")
       }
-
-      const resUser = await res.json();
-      // console.log(resUser);
-      setSuccessMessage(resUser.message); // نمایش پیام موفقیت
-      router.push("/auth/login");
-    } catch (error) {
-      // console.error("Error submitting the form:", error);
-      setErrorMessage(error.message || "An unknown error occurred"); // نمایش پیام خطا
-    } finally {
-      setIsSubmitting(false); // پایان loading
-    }
-  };
+    } catch (error) {  
+      
+      console.log(error)
+      setErrorMessage(error.message || "An unknown error occurred");   
+    } finally {  
+      setIsSubmitting(false); 
+    }  
+  };  
 
   //show toast
   useEffect(() => {

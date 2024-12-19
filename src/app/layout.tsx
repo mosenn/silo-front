@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import {Roboto} from "next/font/google";
 import "./globals.css";
-import AuthProvider from "@/components/providers/AuthProvider";
+import AuthProvider from "@/app/providers/AuthProvider";
 import 'react-toastify/dist/ReactToastify.css';
+import ReactQueryProvider from "./providers/Reactquery/QueryProvider";
 
 const roboto = Roboto({  
   subsets: ['latin'],  
@@ -23,9 +24,11 @@ export default function RootLayout({
       <body
         className={` ${roboto.className} antialiased`}
       >
+        <ReactQueryProvider>
         <AuthProvider>
         {children}
         </AuthProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

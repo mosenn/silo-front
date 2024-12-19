@@ -1,7 +1,7 @@
 import Image from "next/image";
 import LoginComponent from "./LoginComponent";
 import Link from "next/link";
-import Authbutton from "@/components/providers/AuthButton";
+import Authbutton from "@/app/providers/AuthButton";
 
 export default function Login() {
   return (

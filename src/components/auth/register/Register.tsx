@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import RegisterComponent from "./RegisterComponent";
-import Authbutton from "@/components/providers/AuthButton";
+import Authbutton from "@/app/providers/AuthButton";
 
 export default function Register() {
   return (
