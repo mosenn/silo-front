@@ -5,25 +5,35 @@ import { RiBarChartBoxLine } from "react-icons/ri";
 import { motion } from "framer-motion";
 
 interface componentProps {
-  setSelectedTab : (value:string)=>void,
-  selectedTab : string
-
+  setSelectedTab: (value: string) => void;
+  selectedTab: string;
 }
 
-export default function DashboardCards({ setSelectedTab,selectedTab} : componentProps) {
-  
-
+export default function DashboardCards({
+  setSelectedTab,
+  selectedTab,
+}: componentProps) {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 mt-10">
       {/* all products  */}
-      <motion.div  whileTap={{ scale: 0.9 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-            }}
-            transition={{ type: "spring", stiffness: 400 }}  onClick={()=> {setSelectedTab("allProducts") }} className={` ${selectedTab == "allProducts" ? "bg-primary text-white/95 " : "bg-white text-neutral-800"}  border-l-0  border-t-0 border-r-primary border-2   border-b-0  h-24 p-2 hover:bg-primary hover:text-white/95  text-sm text-balance  w-full rounded-lg  flex flex-col items-center md:items-stretch    md:flex-row  md:justify-between transition-all   cursor-pointer  dark:text-white  dark:bg-neutral-800 `}>
+      <motion.div
+        whileTap={{ scale: 0.9 }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+        }}
+        transition={{ type: "spring", stiffness: 400 }}
+        onClick={() => {
+          setSelectedTab("allProducts");
+        }}
+        className={` ${
+          selectedTab == "allProducts"
+            ? "bg-primary text-white/95 "
+            : "bg-white text-neutral-800"
+        }  border-l-0  border-t-0 border-r-primary border-2   border-b-0  h-24 p-2 hover:bg-primary hover:text-white/95  text-sm text-balance  w-full rounded-lg  flex flex-col items-center md:items-stretch    md:flex-row  md:justify-between transition-all   cursor-pointer  dark:text-white  dark:bg-neutral-800 `}
+      >
         <div>
-          <TbReportAnalytics  className="size-7 md:size-9"  />
+          <TbReportAnalytics className="size-7 md:size-9" />
         </div>
 
         <div className="flex flex-col justify-between  items-center font-semibold text-center">
@@ -32,14 +42,22 @@ export default function DashboardCards({ setSelectedTab,selectedTab} : component
         </div>
       </motion.div>
       {/* Today's sales */}
-      <motion.div  whileTap={{ scale: 0.9 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-            }}
-            transition={{ type: "spring", stiffness: 400 }} onClick={()=>setSelectedTab("todaySales")} className={` ${selectedTab == "todaySales" ? "bg-primary  text-white/95" : "bg-white text-neutral-800"} border-l-0  border-t-0 border-r-primary border-2   border-b-0 h-24 p-2 hover:bg-primary hover:text-white/95 text-sm md:text-base w-full rounded-lg    flex flex-col items-center md:items-stretch     md:flex-row  md:justify-between cursor-pointer transition-all  dark:text-white dark:bg-neutral-800 `}>
+      <motion.div
+        whileTap={{ scale: 0.9 }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+        }}
+        transition={{ type: "spring", stiffness: 400 }}
+        onClick={() => setSelectedTab("todaySales")}
+        className={` ${
+          selectedTab == "todaySales"
+            ? "bg-primary  text-white/95"
+            : "bg-white text-neutral-800"
+        } border-l-0  border-t-0 border-r-primary border-2   border-b-0 h-24 p-2 hover:bg-primary hover:text-white/95 text-sm md:text-base w-full rounded-lg    flex flex-col items-center md:items-stretch     md:flex-row  md:justify-between cursor-pointer transition-all  dark:text-white dark:bg-neutral-800 `}
+      >
         <div>
-          <TbReportAnalytics  className="size-7 md:size-9"  />
+          <TbReportAnalytics className="size-7 md:size-9" />
         </div>
 
         <div className="flex flex-col  justify-between items-center font-semibold text-center">
@@ -48,14 +66,22 @@ export default function DashboardCards({ setSelectedTab,selectedTab} : component
         </div>
       </motion.div>
       {/*users */}
-      <motion.div whileTap={{ scale: 0.9 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-            }}
-            transition={{ type: "spring", stiffness: 400 }} onClick={()=> setSelectedTab("users")} className={` ${selectedTab == "users" ? "bg-primary text-white/95 " : "bg-white text-neutral-800"} border-l-0  text-sm md:text-base border-t-0 border-r-primary border-2   border-b-0 h-24 p-2 hover:bg-primary hover:text-white/95  w-full rounded-lg  transition-all  flex flex-col items-center md:items-stretch     md:flex-row  md:justify-between cursor-pointer  dark:text-white  dark:bg-neutral-800 `}>
+      <motion.div
+        whileTap={{ scale: 0.9 }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+        }}
+        transition={{ type: "spring", stiffness: 400 }}
+        onClick={() => setSelectedTab("users")}
+        className={` ${
+          selectedTab == "users"
+            ? "bg-primary text-white/95 "
+            : "bg-white text-neutral-800"
+        } border-l-0  text-sm md:text-base border-t-0 border-r-primary border-2   border-b-0 h-24 p-2 hover:bg-primary hover:text-white/95  w-full rounded-lg  transition-all  flex flex-col items-center md:items-stretch     md:flex-row  md:justify-between cursor-pointer  dark:text-white  dark:bg-neutral-800 `}
+      >
         <div>
-        <HiMiniUserGroup  className="size-7 md:size-9"  />
+          <HiMiniUserGroup className="size-7 md:size-9" />
         </div>
 
         <div className="flex flex-col justify-between items-center font-semibold text-center">
@@ -64,14 +90,24 @@ export default function DashboardCards({ setSelectedTab,selectedTab} : component
         </div>
       </motion.div>
       {/* products pending */}
-      <motion.div  whileTap={{ scale: 0.9 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-            }}
-            transition={{ type: "spring", stiffness: 400 }} onClick={()=> {setSelectedTab("pendingProduct")}} className={` ${selectedTab == "pendingProduct" ? "bg-primary text-white/95 " : "bg-white text-neutral-800"}  border-l-0  border-t-0 border-r-primary border-2  text-sm md:text-base   border-b-0 h-24 p-2 hover:bg-primary hover:text-white/95  w-full rounded-lg  transition-all  flex flex-col justify-center items-center md:items-stretch     md:flex-row  md:justify-between cursor-pointer  dark:text-white  dark:bg-neutral-800 `}>
+      <motion.div
+        whileTap={{ scale: 0.9 }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+        }}
+        transition={{ type: "spring", stiffness: 400 }}
+        onClick={() => {
+          setSelectedTab("pendingProduct");
+        }}
+        className={` ${
+          selectedTab == "pendingProduct"
+            ? "bg-primary text-white/95 "
+            : "bg-white text-neutral-800"
+        }  border-l-0  border-t-0 border-r-primary border-2  text-sm md:text-base   border-b-0 h-24 p-2 hover:bg-primary hover:text-white/95  w-full rounded-lg  transition-all  flex flex-col justify-center items-center md:items-stretch     md:flex-row  md:justify-between cursor-pointer  dark:text-white  dark:bg-neutral-800 `}
+      >
         <div>
-        <RiBarChartBoxLine  className="size-7 md:size-9"  />
+          <RiBarChartBoxLine className="size-7 md:size-9" />
         </div>
 
         <div className="flex flex-col justify-between items-center font-semibold text-center">
@@ -79,7 +115,6 @@ export default function DashboardCards({ setSelectedTab,selectedTab} : component
           <span>{0}</span>
         </div>
       </motion.div>
-
     </div>
   );
 }

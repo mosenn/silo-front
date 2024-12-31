@@ -8,7 +8,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
-import  RegisterApi from "@/app/services/auth/registerApi";
+import RegisterApi from "@/app/services/auth/registerApi";
 
 const RegisterSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -49,33 +49,33 @@ export default function RegisterComponent() {
     setErrorMessage(""); // Resetting previous error message
     setSuccessMessage(""); // Resetting previous success message
 
-    try {  
-      const resUser = await RegisterApi(data);  
-      if(resUser.status === 201){
-      setSuccessMessage(resUser.data.message);
-      router.push("/login")
+    try {
+      const resUser = await RegisterApi(data);
+      if (resUser.status === 201) {
+        toast.success(resUser.data.message);
+
+        router.push("/login");
       }
-    } catch (error) {  
-      
-      console.log(error)
-      setErrorMessage(error.message || "An unknown error occurred");   
-    } finally {  
-      setIsSubmitting(false); 
-    }  
-  };  
-
-  //show toast
-  useEffect(() => {
-    if (errorMessage) {
-      toast.error(errorMessage);
+    } catch (error) {
+      // console.log(error);
+      toast.error(error.message || "An unknown error occurred");
+    } finally {
+      setIsSubmitting(false);
     }
-  }, [errorMessage]);
+  };
 
-  useEffect(() => {
-    if (successMessage) {
-      toast.success(successMessage);
-    }
-  }, [successMessage]);
+  // //show toast
+  // useEffect(() => {
+  //   if (errorMessage) {
+  //     toast.error(errorMessage);
+  //   }
+  // }, [errorMessage]);
+
+  // useEffect(() => {
+  //   if (successMessage) {
+  //     toast.success(successMessage);
+  //   }
+  // }, [successMessage]);
 
   return (
     <>
@@ -126,7 +126,7 @@ export default function RegisterComponent() {
               <button
                 onClick={() => setIsViewPassword(!isViewPassword)}
                 type="button"
-                className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                className="absolute left-3 top-3 text-gray-400 hover:text-gray-600"
               >
                 {isViewPassword ? <FaEye /> : <FaEyeSlash />}
               </button>

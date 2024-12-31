@@ -2,7 +2,7 @@
 'use client';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode} from 'react';
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 interface Props {
   children: ReactNode;
@@ -10,7 +10,8 @@ interface Props {
 
 export default function ReactQueryProvider({ children }: Props) {
   const queryClient = new QueryClient({defaultOptions: {
-    queries : {refetchOnWindowFocus : false}
+    
+   
   }});
 
   return (

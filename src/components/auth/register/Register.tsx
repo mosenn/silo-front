@@ -8,16 +8,7 @@ export default function Register() {
   return (
     <>
       <div className="flex justify-between ">
-        <section className="img w-full hidden lg:block">
-          <Image
-            width={650}
-            height={500}
-            src="/assets/phons.jpg"
-            alt="img-login"
-            className="h-[607px] "
-          />
-        </section>
-        <section className="login w-full  mx-auto">
+      <section className="login w-full  mx-auto">
           <Link
             href={"/"}
             className="logo text-3xl font-semibold text-primary tracking-wider "
@@ -32,6 +23,16 @@ export default function Register() {
           </div>
           <Authbutton />
         </section>
+        <section className="img w-full hidden lg:block">
+          <Image
+            width={650}
+            height={500}
+            src="/assets/phons.jpg"
+            alt="img-login"
+            className="h-[607px] "
+          />
+        </section>
+       
       </div>
     </>
   );

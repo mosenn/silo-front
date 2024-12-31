@@ -4,6 +4,8 @@ import "./globals.css";
 import AuthProvider from "@/app/providers/AuthProvider";
 import 'react-toastify/dist/ReactToastify.css';
 import ReactQueryProvider from "./providers/Reactquery/QueryProvider";
+import Head from "@/components/Head/Head";
+import { StorageProvider } from "./providers/context/userInfo";
 
 const roboto = Roboto({  
   subsets: ['latin'],  
@@ -20,15 +22,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en"  dir="rtl">
       <body
-        className={` ${roboto.className} antialiased`}
+        className={` ${roboto.className} antialiased `}
       >
+        <StorageProvider>
         <ReactQueryProvider>
         <AuthProvider>
+          <Head />
         {children}
         </AuthProvider>
         </ReactQueryProvider>
+        </StorageProvider>
       </body>
     </html>
   );

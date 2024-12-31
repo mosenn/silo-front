@@ -1,3 +1,4 @@
+import { useStorage } from "@/app/providers/context/userInfo";
 import apiRequests from "@/app/services/auth/config";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
@@ -21,8 +22,10 @@ export interface Order {
 }
 
 function MyProducts() {
-  const user = useSession();
-  const token = user.data?.user?.accessToken;
+  const { userInfo } = useStorage();
+
+  const token = userInfo?.data?.token;
+  console.log(userInfo, token);
   const fetchProducts = async (token: string) => {
     if (!token) throw new Error("Token is missing");
     const response = await apiRequests.get("/order/farmer/orders", {
@@ -32,15 +35,12 @@ function MyProducts() {
     });
     return response.data.value;
   };
-  
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["productsuser"], // کلید کش
-    queryFn: () => fetchProducts(token!), 
-    // staleTime : 0
-    
-    
+    queryFn: () => fetchProducts(token!),
   });
-  console.log( "product me",  data)
+  // console.log("products" , data)
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -61,18 +61,19 @@ function MyProducts() {
               <th className="py-3 px-6 text-center">نام محصول</th>
             </tr>
           </thead>
-          {data.length > 0 && data?.map((product ,idx) => (
-            <tbody
-              className="text-gray-600 text-sm font-light text-center"
-              key={idx}
-            >
-              <tr className="border-b border-gray-300 hover:bg-gray-100">
-                <td className="py-3 px-6">{product.status}</td>
-                <td className="py-3 px-6">{product.quantity}</td>
-                <td className="py-3 px-6">{product.grainType}</td>
-              </tr>
-            </tbody>
-          ))}
+          {data?.length > 0 &&
+            data?.map((product, idx) => (
+              <tbody
+                className="text-gray-600 text-sm font-light text-center"
+                key={idx}
+              >
+                <tr className="border-b border-gray-300 hover:bg-gray-100">
+                  <td className="py-3 px-6">{product.status}</td>
+                  <td className="py-3 px-6">{product.quantity}</td>
+                  <td className="py-3 px-6">{product.grainType}</td>
+                </tr>
+              </tbody>
+            ))}
         </table>
       </div>
     </div>
@@ -80,4 +81,3 @@ function MyProducts() {
 }
 
 export default MyProducts;
-

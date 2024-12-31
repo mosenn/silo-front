@@ -74,3 +74,22 @@
 .no-visible-scrollbar::-webkit-scrollbar {
   display: none;
 }
+/* در صورتی که از فریم‌ورک Tailwind CSS استفاده می‌کنید، این را به CSS خود اضافه کنید */
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none; /* برای مرورگرهای WebKit (Chrome, Safari) */
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* برای IE و Edge */
+  scrollbar-width: none; /* برای Firefox */
+}
+
+/* مخفی کردن نوار اسکرول در مرورگرهای مختلف */
+.scrollbar-hidde {
+  -ms-overflow-style: none; /* برای Internet Explorer و Edge */
+  scrollbar-width: none; /* برای Firefox */
+}
+
+.scrollbar-hidde::-webkit-scrollbar {
+  display: none; /* برای Chrome، Safari و Opera */
+}

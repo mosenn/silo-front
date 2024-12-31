@@ -26,7 +26,7 @@ const Dashboard = () => {
   console.log(selectedTab)
   return (
     <div className="flex flex-1">
-      <div className="p-2 md:p-10 rounded-tl-2xl overflow-y-auto border border-primary dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 flex flex-col gap-2 flex-1 w-full min-h-full">
+      <div className="p-2 md:p-10 rounded-tl-2xl overflow-y-auto  dark:border-neutral-700 bg-[#F6F7F9] dark:bg-neutral-900 flex flex-col gap-2 flex-1 w-full min-h-full">
         <CardHead setSelectedTab={setSelectedTab}  selectedTab={selectedTab}  />
         <div className="flex gap-2 flex-1">
             <div

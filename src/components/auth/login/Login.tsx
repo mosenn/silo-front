@@ -7,15 +7,6 @@ export default function Login() {
   return (
     <>
       <div className="flex justify-between ">
-        <section className="img w-full hidden lg:block">
-          <Image
-            width={650}
-            height={500}
-            src="/assets/phons.jpg"
-            alt="img-login"
-            className="h-[607px] "
-          />
-        </section>
         <section className="login w-full mx-auto">
           <Link
             href={"/"}
@@ -30,6 +21,15 @@ export default function Login() {
             <div className="flex-grow border-t border-gray-300"></div>
           </div>
           <Authbutton />
+        </section>
+        <section className="img w-full hidden lg:block">
+          <Image
+            width={650}
+            height={500}
+            src="/assets/phons.jpg"
+            alt="img-login"
+            className="h-[607px] "
+          />
         </section>
       </div>
     </>

@@ -1,5 +1,8 @@
 "use client";
+import { useStorage } from "@/app/providers/context/userInfo";
+import apiRequests from "@/app/services/auth/config";
 import { cn } from "@/lib/utils";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import React, {
   ReactNode,
@@ -9,6 +12,15 @@ import React, {
   useRef,
   useState,
 } from "react";
+type Product = {
+  farmerId: string;
+  grainType: string;
+  id: string;
+  quantity: number;
+  status: string;
+};
+
+type Products = Product[];
 
 interface ModalContextType {
   open: boolean;
@@ -39,11 +51,7 @@ export function Modal({ children }: { children: ReactNode }) {
   return <ModalProvider>{children}</ModalProvider>;
 }
 
-export const ModalTrigger = ({
-  className,
-}: {
-  className?: string;
-}) => {
+export const ModalTrigger = ({ className }: { className?: string }) => {
   const { setOpen } = useModal();
   return (
     <button
@@ -53,9 +61,7 @@ export const ModalTrigger = ({
       )}
       onClick={() => setOpen(true)}
     >
-     <span className=" text-center text-sm  ">
-            تغییر وضعیت
-          </span>
+      <span className=" text-center text-sm  ">تغییر وضعیت</span>
     </button>
   );
 };
@@ -153,11 +159,59 @@ export const ModalContent = ({
 };
 
 export const ModalFooter = ({
+  productId,
   className,
 }: {
+  productId?: string;
   className?: string;
 }) => {
+  const queryClient = useQueryClient();
+
+  const { userInfo } = useStorage();
+  const token = userInfo?.data?.token;
   const { setOpen } = useModal();
+
+  const useUpdateOrderStatus = () => {
+    return useMutation({
+      mutationFn: async ({
+        productId,
+        token,
+      }: {
+        productId: string;
+        token: string;
+      }) => {
+        const res = await apiRequests.patch(
+          `/order/admin/${productId}`,
+          { status: "done" },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        return res.data;
+      },
+      onSuccess: (data) => {
+        alert("Order updated successfully:");
+        console.log(data);
+        setOpen(false);
+        queryClient.invalidateQueries(["allProductPending"]);
+      },
+      onError: (error) => {
+        console.error("Error updating order status:", error);
+      },
+    });
+  };
+  const mutation = useUpdateOrderStatus();
+
+  const handleSubmit = () => {
+    if (!productId || !token) {
+      console.error("Missing required parameters: productId or token");
+      return;
+    }
+
+    mutation.mutate({ productId, token });
+  };
 
   return (
     <div
@@ -166,12 +220,18 @@ export const ModalFooter = ({
         className
       )}
     >
-         <button onClick={()=> setOpen(false)}  className="px-2 py-1 bg-gray-200 text-black dark:bg-black dark:border-black dark:text-white border border-gray-300 rounded-md text-sm w-28">
-              خیر
-            </button>
-            <button className="bg-[#597EF7] text-white dark:bg-white dark:text-black text-sm px-2 py-1 rounded-md border border-white w-28">
-              بله
-            </button>
+      <button
+        onClick={() => setOpen(false)}
+        className="px-2 py-1 bg-gray-200 text-black dark:bg-black dark:border-black dark:text-white border border-gray-300 rounded-md text-sm w-28"
+      >
+        خیر
+      </button>
+      <button
+        onClick={handleSubmit}
+        className="bg-[#597EF7] text-white dark:bg-white dark:text-black text-sm px-2 py-1 rounded-md border border-white w-28"
+      >
+        بله
+      </button>
     </div>
   );
 };

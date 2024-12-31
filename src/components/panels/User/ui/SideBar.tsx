@@ -64,7 +64,7 @@ export function SidebarUser() {
   return (
     <div
     className={cn(
-      "rounded-md flex flex-col md:flex-row bg-primary   dark:bg-neutral-800 w-full flex-1 max-w-7xl mx-auto border  dark:border-neutral-700 overflow-hidden",
+      "rounded-md flex flex-col md:flex-row bg-primary   dark:bg-neutral-800 w-full flex-1  mx-auto border  dark:border-neutral-700 overflow-hidden",
       "h-full" // for your use case, use `h-screen` instead of `h-[60vh]`
     )}
       

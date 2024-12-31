@@ -15,7 +15,7 @@ export default function DashboardCardsUser({ setSelectedTab,selectedTab} : compo
   
 
   return (
-    <motion.div  className="flex gap-2">
+    <motion.div  className="flex gap-2 mt-8">
       {/* all products  */}
       <motion.div  whileTap={{ scale: 0.9 }}
             animate={{

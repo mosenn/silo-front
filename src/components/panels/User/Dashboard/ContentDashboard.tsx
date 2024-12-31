@@ -25,8 +25,8 @@ const DashboardUser = () => {
   };
   
   return (
-    <div className="flex flex-1 bg-gray-200 border ">
-      <div className="p-2 md:p-10 rounded-tl-2xl border bg-gray-100  border-primary dark:border-neutral-700  dark:bg-neutral-900 flex flex-col gap-2 flex-1 w-full min-h-screen">
+    <div className="flex flex-1  ">
+      <div className="p-2 md:p-10 rounded-tl-2xl border bg-[#F6F7F9] dark:border-neutral-700  dark:bg-neutral-900 flex flex-col gap-2 flex-1 w-full min-h-screen">
         <DashboardCardsUser setSelectedTab={setSelectedTab}  selectedTab={selectedTab}  />
         <div className="flex gap-2 flex-1">
             <div

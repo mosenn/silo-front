@@ -9,8 +9,9 @@ import apiRequests from "@/app/services/auth/config";
 import { useSession } from "next-auth/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Order } from "./MyProducts";
+import { useStorage } from "@/app/providers/context/userInfo";
+import { toast, ToastContainer } from "react-toastify";
 
-// تعریف اسکیمای اعتبارسنجی
 const addProductSchema = z.object({
   grainType: z.string().min(2, "نام محصول را وارد کنید"),
   quantity: z
@@ -21,8 +22,9 @@ type AddProduct = z.infer<typeof addProductSchema>;
 
 function AddingProduct() {
   const queryClient = useQueryClient();
-  const user = useSession();
-  const token = user.data?.user?.accessToken;
+  const {userInfo} = useStorage()
+   
+   const token = userInfo?.data?.token;
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<AddProduct>({
     resolver: zodResolver(addProductSchema),
@@ -35,20 +37,22 @@ function AddingProduct() {
         Authorization: `Bearer ${token}`,
       },
     });
+
     return response.data.data;
+
   };
 
   const mutation = useMutation({
     mutationFn: addProduct,
     onSuccess: (newProduct) => {
       queryClient.invalidateQueries(['productsuser'])
-      console.log(queryClient.invalidateQueries(['productsuser']))
+      // console.log(queryClient.invalidateQueries(['productsuser']))
 
-      alert("محصول با موفقیت اضافه شد!");
+      toast.success("محصول با موفقیت اضافه شد!");
   },
     onError: (error) => {
-      console.error("Error adding product:", error);
-      alert("خطا در افزودن محصول!");
+      // console.error("Error adding product:", error);
+      toast.error("خطا در افزودن محصول!");
     },
   });
 
@@ -60,6 +64,7 @@ function AddingProduct() {
 
   return (
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg border border-gray-200 p-6 mt-6">
+      <ToastContainer />
       <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center p-2 pb-4">
         افزودن محصول
       </h2>
